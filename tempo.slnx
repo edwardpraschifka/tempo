@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Tempo.Api/Tempo.Api.csproj" />
+  <Project Path="Tempo.Core/Tempo.Core.csproj" />
+  <Project Path="Tempo.Tests/Tempo.Tests.csproj" />
+</Solution>
