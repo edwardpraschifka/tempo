@@ -29,6 +29,18 @@ namespace Tempo.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("BotElo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HumanColor")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Outcome")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Games");
