@@ -41,7 +41,7 @@ Tempo is a chess training site. You play a bot that makes human-like moves at th
 | Id | int | Primary key |
 | GameId | int | Foreign key to Game |
 | MoveNumber | int | Order of the move within the game |
-| Move | string | The move played, in algebraic notation |
+| AlgNotation | string | The move played, in algebraic notation |
 | EvaluationId | int, nullable | Foreign key to Evaluation; empty until the move is analysed |
 
 ### Evaluation

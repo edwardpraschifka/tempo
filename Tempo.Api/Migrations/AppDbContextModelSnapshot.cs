@@ -21,6 +21,26 @@ namespace Tempo.Api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Tempo.Core.Evaluation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BestMove")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Evaluations");
+                });
+
             modelBuilder.Entity("Tempo.Core.Game", b =>
                 {
                     b.Property<int>("Id")
@@ -44,6 +64,54 @@ namespace Tempo.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("Tempo.Core.Move", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AlgNotation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("EvaluationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MoveNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EvaluationId");
+
+                    b.HasIndex("GameId", "MoveNumber")
+                        .IsUnique();
+
+                    b.ToTable("Moves");
+                });
+
+            modelBuilder.Entity("Tempo.Core.Move", b =>
+                {
+                    b.HasOne("Tempo.Core.Evaluation", "Evaluation")
+                        .WithMany()
+                        .HasForeignKey("EvaluationId");
+
+                    b.HasOne("Tempo.Core.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Evaluation");
+
+                    b.Navigation("Game");
                 });
 #pragma warning restore 612, 618
         }
